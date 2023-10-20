@@ -1,0 +1,39 @@
+.nav-bar {
+  padding: 16px 70px;
+  border-bottom: 1px solid #e4e7ec;
+  .logo-container {
+    cursor: pointer;
+    img {
+      width: 120px;
+      height: 36px;
+    }
+  }
+  nav {
+    z-index: 999999;
+    .main-menu,
+    .sub-menu {
+      .list-item {
+        font-weight: bolder;
+        font-size: 1.2rem;
+        &.list-item__track-shipment {
+          position: relative;
+          padding: 21px 28px;
+          //   border-inline-end: 1px solid #e4e7ec;
+          &::after {
+            content: "";
+            display: block;
+            width: 2px;
+            // height: 10px;
+            color: #e4e7ec;
+            background-color: #e4e7ec;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: 20px 0;
+          }
+        }
+      }
+    }
+  }
+}

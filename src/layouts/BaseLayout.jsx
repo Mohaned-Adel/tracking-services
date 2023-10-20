@@ -5,7 +5,7 @@ import UserRoutes from "../routes/UserRoutes";
 
 export default function BaseLayout() {
   return (
-    <div className="base-layout">
+    <div className="base-layout min-h-screen">
       <NavBar />
 
       <UserRoutes />
