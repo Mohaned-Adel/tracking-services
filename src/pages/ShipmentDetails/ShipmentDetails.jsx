@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import DataTable from "../../components/DataTable/DataTable";
 import { useTranslation } from "react-i18next";
+import { BsFillBagCheckFill } from "react-icons/bs";
+import { GoChecklist } from "react-icons/go";
+import { FaTruckFast } from "react-icons/fa6";
+import { AiOutlineDeliveredProcedure } from "react-icons/ai";
 
 export default function ShipmentDetails() {
   const { t } = useTranslation();
@@ -24,6 +28,29 @@ export default function ShipmentDetails() {
         },
       };
     });
+
+  const shipmentGraphData = [
+    {
+      icon: <GoChecklist className="text-xl inline-block" />,
+      title: "Shipment created",
+      date: "Waiting...",
+    },
+    {
+      icon: <BsFillBagCheckFill className="text-xl inline-block" />,
+      title: "Package received",
+      date: "Waiting...",
+    },
+    {
+      icon: <FaTruckFast className="text-xl inline-block" />,
+      title: "Out for delivery",
+      date: "Waiting...",
+    },
+    {
+      icon: <AiOutlineDeliveredProcedure className="text-xl inline-block" />,
+      title: "Delivered",
+      date: "Waiting...",
+    },
+  ];
   return (
     <section className="shipment-data container mx-auto p-16">
       <div className="shipment-data-wrapper">
@@ -53,11 +80,25 @@ export default function ShipmentDetails() {
             </h4>
           </div>
         </div>
-        <div className="shipment-track-line py-4 px-7">
-          <h1>TODO</h1>
+        <div className="shipment-track-line py-4 px-7 grid lg:grid-cols-4 grid-cols-2">
+          {shipmentGraphData.map((shipment, index) => {
+            return (
+              <div key={index} className={`step block w-full mb-7 text-center`}>
+                <div
+                  className={`step-icon-wrap flex justify-center items-center m-auto relative w-full h-20 text-center`}
+                >
+                  <div className="step-icon inline-block relative w-[60px] h-[60px] rounded-full bg-transparent">
+                    {shipment.icon}
+                  </div>
+                </div>
+                <h4 className="step-title">{shipment.title}</h4>
+                <small className="text-muted text-sm">{shipment.date}</small>
+              </div>
+            );
+          })}
         </div>
       </div>
-      <div className="shipment-details-wrapper grid lg:grid-cols-2 grid-cols-1 gap-5 mt-6 w-full">
+      <div className="shipment-details-wrapper grid lg:grid-cols-2 grid-cols-1 gap-7 mt-10 w-full">
         <div className="shipment-details">
           <h4 className="mb-4">Shipment details</h4>
           <DataTable

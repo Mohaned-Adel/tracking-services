@@ -3,6 +3,7 @@ import "./NavBar.scss";
 
 import BostaLogo from "../../assets/svg/bosta-logo.svg";
 import { Link } from "react-router-dom";
+import LanguageSwitch from "../LanguageSwitch/LanguageSwitch";
 
 export default function NavBar() {
   return (
@@ -22,7 +23,7 @@ export default function NavBar() {
             Track Shipment
           </li>
           <li className="list-item">Login</li>
-          <li className="list-item text-red-500">ENG</li>
+          <LanguageSwitch />
         </ul>
       </nav>
     </div>

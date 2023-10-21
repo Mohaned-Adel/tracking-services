@@ -12,4 +12,61 @@
       }
     }
   }
+
+  .shipment-track-line {
+    .step {
+      &:first-child {
+        text-align: start !important;
+        .step-icon-wrap {
+          justify-content: start !important;
+          &::before {
+            content: none;
+          }
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+      &:last-child {
+        text-align: end !important;
+        .step-icon-wrap {
+          justify-content: end !important;
+          &::after {
+            content: none;
+          }
+          &::before {
+            width: 100%;
+          }
+        }
+      }
+      .step-icon-wrap {
+        &::after,
+        &::before {
+          display: block;
+          position: absolute;
+          top: 50%;
+          width: 50%;
+          height: 3px;
+          margin-top: -1px;
+          background-color: #e1e7ec;
+          content: "";
+          z-index: 1;
+        }
+        &::after {
+          right: 0;
+        }
+        &::before {
+          left: 0;
+        }
+        .step-icon {
+          background-color: white !important;
+
+          border: 2px solid var(--border-color);
+          color: var(--border-color);
+          line-height: 54px;
+          z-index: 5;
+        }
+      }
+    }
+  }
 }
