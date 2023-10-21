@@ -1,0 +1,15 @@
+.shipment-details {
+  .shipment-details-wrapper {
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    .main-details {
+      border-bottom: 1px solid var(--border-color);
+      p {
+        color: #a6a6a6;
+      }
+      h4 {
+        font-weight: bold;
+      }
+    }
+  }
+}
