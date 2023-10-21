@@ -35,6 +35,7 @@ export default function ShipmentNumber() {
           shipment_currentStatus: data?.CurrentStatus,
           shipment_provider: data?.provider,
           shipment_promisedDate: data?.PromisedDate,
+          shipment_transitEvents: data?.TransitEvents,
         })
       );
 

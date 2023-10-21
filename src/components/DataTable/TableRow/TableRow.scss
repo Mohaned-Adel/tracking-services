@@ -1,0 +1,32 @@
+.table-row {
+  width: 100%;
+  text-align: center;
+  height: 40px;
+  z-index: 99 !important;
+  position: relative;
+
+  &:hover {
+    background-color: #4a7cff2e;
+    cursor: pointer;
+  }
+
+  .table-data-cell {
+    padding: 0 10px;
+    text-align: start;
+    position: relative;
+    z-index: 5;
+    max-width: 300px;
+    overflow-wrap: break-word;
+    border-bottom: 1px solid #4a7cff2e;
+    font-family: var(--main-font-regular) !important;
+
+    span {
+      text-align: start;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

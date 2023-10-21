@@ -5,8 +5,11 @@
 @tailwind utilities;
 
 :root {
+  --mainColor: #f40105;
+  --main-background-color: #fafafa;
   --border-color: #e4e7ec;
   --border-radius: 10px;
+  --main-font-regular: Cairo, Inter, system-ui, Helvetica, Arial, sans-serif;
 
   font-family: Cairo, Inter, system-ui, Helvetica, Arial, sans-serif;
   line-height: 1.5;
