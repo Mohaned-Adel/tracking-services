@@ -15,6 +15,12 @@
       .list-item {
         font-weight: bolder;
         font-size: 1.2rem;
+        padding: 21px 28px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        &:hover {
+          color: var(--mainColor);
+        }
         &.list-item__track-shipment {
           position: relative;
           padding: 21px 28px;
@@ -35,5 +41,26 @@
         }
       }
     }
+  }
+}
+
+[dir="rtl"] {
+  nav {
+    .sub-menu {
+      .list-item {
+        &.list-item__track-shipment {
+          &::after {
+            right: unset;
+            left: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 567px) {
+  .nav-bar {
+    padding: 16px 10px;
   }
 }

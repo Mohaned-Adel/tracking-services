@@ -45,3 +45,14 @@
     }
   }
 }
+
+@media only screen and (max-width: 576px) {
+  .shipment-number {
+    .shipment-number__title {
+      font-size: 24px !important;
+    }
+    .shipment-number__tracking-number {
+      max-width: 90% !important;
+    }
+  }
+}

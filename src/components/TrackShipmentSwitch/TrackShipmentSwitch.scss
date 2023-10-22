@@ -1,0 +1,39 @@
+.list-item__track-shipment {
+  border: 1px solid transparent;
+  &:hover {
+    border-radius: var(--border-radius);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background: #fff;
+    border: 1px solid #e4e7ec;
+    border-bottom-color: transparent;
+    box-shadow: 0 -10px 19px 2px rgba(0, 0, 0, 0.10196078431372549);
+    &::after {
+      content: none !important;
+    }
+  }
+  .list-item__track-number {
+    margin-top: 10px;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    border: 1px solid #e4e7ec;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.10196078431372549);
+    padding: 10px 30px;
+    left: 0;
+    top: 100%;
+    align-items: start !important;
+
+    background-color: #fff;
+    .shipment-number__title {
+      margin-bottom: 0px;
+      font-size: 14px !important;
+      text-align: start !important;
+    }
+    input {
+      &::placeholder {
+        font-size: 16px;
+        font-weight: normal;
+      }
+    }
+  }
+}

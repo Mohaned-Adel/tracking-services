@@ -3,6 +3,7 @@
   height: 40px;
   text-align: center;
   border-radius: 10px;
+  border: 1px solid var(--border-color);
   background-color: var(--main-background-color);
 
   .table-header-circle {
@@ -14,9 +15,9 @@
   }
   .table-header-data {
     text-align: start;
-    padding: 0 10px;
+    padding: 15px 10px;
     // border-bottom: 1px solid rgba(74, 124, 255, 0.1803921569);
-    padding-bottom: 20px;
+    // padding-bottom: 20px;
     white-space: nowrap;
   }
 }

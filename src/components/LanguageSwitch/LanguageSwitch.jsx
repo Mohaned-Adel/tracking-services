@@ -18,7 +18,7 @@ const LanguageSwitch = () => {
   useEffect(() => {}, [lang]);
   return (
     <li
-      className="language-container list-item text-red-500"
+      className="language-container list-item text-red-500 cursor-pointer"
       onClick={changeLanguageHandler}
     >
       {localStorage.getItem("i18nextLng") === "ar" ? (

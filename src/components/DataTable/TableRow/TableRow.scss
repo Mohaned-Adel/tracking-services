@@ -3,21 +3,22 @@
   text-align: center;
   height: 40px;
   z-index: 99 !important;
+  border: 1px solid var(--border-color);
   position: relative;
 
   &:hover {
-    background-color: #4a7cff2e;
+    background-color: var(--border-color);
     cursor: pointer;
   }
 
   .table-data-cell {
-    padding: 0 10px;
+    padding: 15px 10px;
     text-align: start;
     position: relative;
     z-index: 5;
     max-width: 300px;
     overflow-wrap: break-word;
-    border-bottom: 1px solid #4a7cff2e;
+    // border-bottom: 1px solid #4a7cff2e;
     font-family: var(--main-font-regular) !important;
 
     span {

@@ -8,6 +8,8 @@ import { BsFillBagCheckFill } from "react-icons/bs";
 import { GoChecklist } from "react-icons/go";
 import { FaTruckFast } from "react-icons/fa6";
 import { AiOutlineDeliveredProcedure } from "react-icons/ai";
+import { AiOutlineCheck } from "react-icons/ai";
+import reportIMG from "../../assets/img/report.png";
 
 export default function ShipmentDetails() {
   const { t } = useTranslation();
@@ -22,73 +24,130 @@ export default function ShipmentDetails() {
         [t(`hub`)]: transit?.hub || "-",
         [t(`date`)]: new Date(transit?.timestamp).toLocaleDateString(),
         [t(`time`)]: new Date(transit?.timestamp).toLocaleTimeString(),
-        [t("details")]: transit?.state,
+        [t("details")]: t(`${transit?.state}`),
         rowClick: () => {
           console.log(transit);
         },
       };
     });
 
-  const shipmentGraphData = [
+  const shipmentMainData = [
     {
-      icon: <GoChecklist className="text-xl inline-block" />,
-      title: "Shipment created",
-      date: "Waiting...",
+      title: t(`shipmentNumber`).concat(" ", shipmentData?.shipment_number),
+      text: t(`${shipmentData?.shipment_currentStatus?.state}`),
     },
     {
-      icon: <BsFillBagCheckFill className="text-xl inline-block" />,
-      title: "Package received",
-      date: "Waiting...",
+      title: t(`lastUpdate`),
+      text: new Date(
+        shipmentData?.shipment_currentStatus?.timestamp
+      ).toLocaleString(),
     },
     {
-      icon: <FaTruckFast className="text-xl inline-block" />,
-      title: "Out for delivery",
-      date: "Waiting...",
+      title: t(`provider`),
+      text: shipmentData?.shipment_provider,
     },
     {
-      icon: <AiOutlineDeliveredProcedure className="text-xl inline-block" />,
-      title: "Delivered",
-      date: "Waiting...",
+      title: t(`deliverDate`),
+      text: new Date(shipmentData?.shipment_promisedDate).toLocaleDateString(),
     },
   ];
+
+  const shipmentGraphData = [
+    {
+      state: 1,
+      icon: <GoChecklist className="text-xl inline-block" />,
+      title: t(`TICKET_CREATED`),
+    },
+    {
+      state: 2,
+      icon: <BsFillBagCheckFill className="text-xl inline-block" />,
+      title: t(`PACKAGE_RECEIVED`),
+    },
+    {
+      state: 3,
+      icon: <FaTruckFast className="text-xl inline-block" />,
+      title: t(`OUT_FOR_DELIVERY`),
+    },
+    {
+      state: 4,
+      icon: <AiOutlineDeliveredProcedure className="text-xl inline-block" />,
+      title: t(`DELIVERED`),
+    },
+  ];
+
+  const determineShipmentState = (shipmentState, currentState) => {
+    let shipmentStateNumber;
+    switch (shipmentState) {
+      case `TICKET_CREATED`:
+        shipmentStateNumber = 1;
+        break;
+      case `PACKAGE_RECEIVED`:
+        shipmentStateNumber = 2;
+        break;
+      case `OUT_FOR_DELIVERY`:
+        shipmentStateNumber = 3;
+        break;
+      case `DELIVERED`:
+        shipmentStateNumber = 4;
+        break;
+      default:
+        shipmentStateNumber = 3;
+        break;
+    }
+
+    if (shipmentState === "DELIVERED") {
+      return "completed";
+    } else if (shipmentState === "CANCELLED" && currentState < 4) {
+      return "canceled";
+    } else {
+      return shipmentStateNumber;
+    }
+  };
+
   return (
-    <section className="shipment-data container mx-auto p-16">
+    <section className="shipment-data container mx-auto lg:p-16 p-4">
       <div className="shipment-data-wrapper">
         <div className="main-data py-4 px-7 grid lg:grid-cols-4 grid-cols-2 gap-4">
-          <div>
-            <p>Shipment number {shipmentData?.shipment_number}</p>
-            <h4>{shipmentData?.shipment_currentStatus?.state}</h4>
-          </div>
-          <div>
-            <p>Last update</p>
-            <h4>
-              {new Date(
-                shipmentData?.shipment_currentStatus?.timestamp
-              ).toLocaleString()}
-            </h4>
-          </div>
-          <div>
-            <p>Provider</p>
-            <h4>{shipmentData?.shipment_provider}</h4>
-          </div>
-          <div>
-            <p>Deliver Date</p>
-            <h4>
-              {new Date(
-                shipmentData?.shipment_promisedDate
-              ).toLocaleDateString()}
-            </h4>
-          </div>
+          {shipmentMainData.map((data, index) => (
+            <div key={index}>
+              <p>{data.title}</p>
+              <h4 className="mt-2">{data.text}</h4>
+            </div>
+          ))}
         </div>
-        <div className="shipment-track-line py-4 px-7 grid lg:grid-cols-4 grid-cols-2">
+        <div className="shipment-track-line py-4 px-7 flex lg:grid-cols-4 grid-cols-2">
           {shipmentGraphData.map((shipment, index) => {
             return (
-              <div key={index} className={`step block w-full mb-7 text-center`}>
+              <div
+                key={index}
+                className={`step block w-full mb-7 text-center ${
+                  determineShipmentState(
+                    shipmentData?.shipment_currentStatus?.state,
+                    shipment?.state
+                  ) >= shipment?.state
+                    ? "waiting"
+                    : determineShipmentState(
+                        shipmentData?.shipment_currentStatus?.state,
+                        shipment?.state
+                      )
+                }`}
+              >
                 <div
                   className={`step-icon-wrap flex justify-center items-center m-auto relative w-full h-20 text-center`}
                 >
                   <div className="step-icon inline-block relative w-[60px] h-[60px] rounded-full bg-transparent">
-                    {shipment.icon}
+                    {determineShipmentState(
+                      shipmentData?.shipment_currentStatus?.state
+                    ) === "completed" ||
+                    (determineShipmentState(
+                      shipmentData?.shipment_currentStatus?.state,
+                      shipment?.state
+                    ) === "canceled" &&
+                      shipment?.state < 3) ? (
+                      <AiOutlineCheck />
+                    ) : (
+                      shipment.icon
+                    )}
                   </div>
                 </div>
                 <h4 className="step-title">{shipment.title}</h4>
@@ -100,15 +159,15 @@ export default function ShipmentDetails() {
       </div>
       <div className="shipment-details-wrapper grid lg:grid-cols-2 grid-cols-1 gap-7 mt-10 w-full">
         <div className="shipment-details">
-          <h4 className="mb-4">Shipment details</h4>
+          <h4 className="mb-4">{t(`shipmentDetails`)}</h4>
           <DataTable
-            tableColumns={["hub", "date", "time", "details"]}
+            tableColumns={[t("hub"), t("date"), t("time"), t("details")]}
             tableRows={shipmentEventsRow}
             mapKey={"mapKey"}
           />
         </div>
         <div className="shipment-address">
-          <h4 className="mb-4">Shipment address</h4>
+          <h4 className="mb-4">{t(`shipmentAddress`)}</h4>
           <div className="address-details p-6 bg-gray-100 rounded-lg">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
             architecto culpa explicabo quisquam odit eius quas, facere tempora
@@ -116,13 +175,18 @@ export default function ShipmentDetails() {
             veritatis delectus aliquam ipsa.
           </div>
           <div className="shipment-issues mt-6 border-2 border-gray-200 rounded-lg text-center">
-            <div className="py-8 px-52">
-              <h4 className="font-bold text-lg mb-2 w-full">
-                Any problem with your shipment?!
-              </h4>
-              <button className="report-issue-btn bg-red-500 text-white py-2 px-10 rounded-lg w-full">
-                Report issue
-              </button>
+            <div className="py-6 px-4 md:py-8 md:px-16 flex items-center gap-[70px]">
+              <div className="w-[72px] h-[72px] md:w-[120px] md:h-[120px]">
+                <img className="w-full h-full" src={reportIMG} />
+              </div>
+              <div className="flex-1">
+                <h4 className="font-bold text-lg mb-2">
+                  {t(`shipmentProblem`)}
+                </h4>
+                <button className="report-issue-btn bg-red-500 text-white py-2 px-10 rounded-lg w-full">
+                  {t(`reportIssue`)}
+                </button>
+              </div>
             </div>
           </div>
         </div>
