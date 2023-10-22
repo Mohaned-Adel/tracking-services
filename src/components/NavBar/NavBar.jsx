@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import LogoSwitch from "../LogoSwitch/LogoSwitch";
 import TrackShipmentSwitch from "../TrackShipmentSwitch/TrackShipmentSwitch";
 import { MenuToggle } from "../SideBar/MenuToggle";
-import SideBar from "../Sidebar/SideBar";
+import SideBar from "../Sidebar/SideBar.jsx";
 
 export default function NavBar() {
   const { t } = useTranslation();
