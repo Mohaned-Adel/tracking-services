@@ -4,8 +4,8 @@ import LanguageSwitch from "../LanguageSwitch/LanguageSwitch";
 import { useTranslation } from "react-i18next";
 import LogoSwitch from "../LogoSwitch/LogoSwitch";
 import TrackShipmentSwitch from "../TrackShipmentSwitch/TrackShipmentSwitch";
-import { MenuToggle } from "../SideBar/MenuToggle";
-// import SideBar from "../Sidebar/SideBar";
+import { MenuToggle } from "../SideBar/MenuToggle/MenuToggle";
+import SideBar from "../SideBar/SideBarMenu";
 
 export default function NavBar() {
   const { t } = useTranslation();
@@ -41,7 +41,7 @@ export default function NavBar() {
           <LanguageSwitch />
           <li className="list-item lg:hidden">
             <MenuToggle isOpen={isOpen} toggle={() => setIsOpen(!isOpen)} />
-            {/* <SideBar isOpen={isOpen} /> */}
+            <SideBar isOpen={isOpen} />
           </li>
         </ul>
       </nav>
